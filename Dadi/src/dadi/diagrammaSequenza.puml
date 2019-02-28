@@ -1,0 +1,47 @@
+@startuml
+actor Utente
+participant main
+entity datiCondivisi
+entity ThDado_1
+entity ThDado_2
+entity ThDado_3
+entity ThVisualizza
+
+Utente -> main ++ : start
+
+main -> datiCondivisi ** : new
+main -> ThVisualizza ** : new
+main -> ThDado_1 ** : new
+main -> ThDado_2 ** : new
+main -> ThDado_3 ** : new
+
+Utente -> main : inizio lancio dei dadi
+
+main -> ThDado_1 ++ : start
+main -> ThDado_2 ++ : start
+main -> ThDado_3 ++ : start
+main -> ThVisualizza ++ : start
+
+Utente -> main : fine lancio dei dadi
+
+ThDado_1 -> main : return
+deactivate ThDado_1
+ThDado_2 -> main : return
+deactivate ThDado_2
+ThDado_3 -> main : return
+deactivate ThDado_3
+ThVisualizza -> main : return
+deactivate ThVisualizza
+
+note over main : join ThDado_1
+note over main : join ThDado_2
+note over main : join ThDado_3
+note over main : join ThVisualizza
+
+main -> datiCondivisi : datiCondivisi.getPrimoDado()
+main -> datiCondivisi : datiCondivisi.getPSecondoDado()
+main -> datiCondivisi : datiCondivisi.getTerzoDado()
+
+main -> Utente : messaggio vittoria o sconfitta
+
+@enduml
